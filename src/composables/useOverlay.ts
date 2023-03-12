@@ -18,6 +18,7 @@ export function useOverlay() {
     async function show() {
         if (state.value.overlayOpen) {
             await hide();
+            return;
         }
 
         await appWindow.show();
