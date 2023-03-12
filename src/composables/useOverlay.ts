@@ -1,12 +1,13 @@
 import {useState} from "./useState";
 import {useShortcuts} from "./useShortcuts";
 import { appWindow } from '@tauri-apps/api/window';
+import {useObserver} from "./useObserver";
 
 
 
 const { state } = useState();
 const {registerShortcut } = useShortcuts();
-
+const onShow = useObserver();
 export function useOverlay() {
 
     async function initialize() {
@@ -23,6 +24,7 @@ export function useOverlay() {
         await appWindow.center();
         await appWindow.setFocus();
         state.value.overlayOpen = true;
+        onShow.notify();
     }
 
     async function hide() {
@@ -38,5 +40,6 @@ export function useOverlay() {
         initialize,
         show,
         hide,
+        onShow,
     }
 }

@@ -20,7 +20,8 @@
       "window": {
         "show": true,
         "hide": true,
-        "setFocus": true
+        "setFocus": true,
+        "center": true
       },
       "globalShortcut": {
         "all": true
