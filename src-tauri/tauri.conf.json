@@ -16,6 +16,14 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "window": {
+        "show": true,
+        "hide": true,
+        "setFocus": true
+      },
+      "globalShortcut": {
+        "all": true
       }
     },
     "bundle": {
@@ -38,11 +46,17 @@
     },
     "windows": [
       {
+        "label": "commander",
+        "title": "commander",
         "fullscreen": false,
         "resizable": true,
-        "title": "commander",
+        "center": true,
         "width": 800,
-        "height": 600
+        "height": 600,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "visible": false
       }
     ]
   }
