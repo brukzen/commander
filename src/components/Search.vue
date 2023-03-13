@@ -5,6 +5,7 @@ import {invoke} from "@tauri-apps/api/tauri";
 import {useOverlay} from "../composables/useOverlay";
 import {useCommander} from "../composables/useCommander";
 
+const searchTerm = ref('');
 const searchInput = ref<HTMLInputElement>();
 const commander = useCommander();
 const overlay = useOverlay();
@@ -14,7 +15,15 @@ const results = ref<Array<Command>>([]);
 
 function search(term: string) {
   results.value = commander.suggestCommands(term);
-  console.log(`Search ${term} ${results.value.length}`);
+}
+
+function execute(term: string) {
+  results.value[0].executor(term);
+}
+
+function completeTerm(term: string) {
+  searchTerm.value = results.value[0].prefix;
+  search(searchTerm.value);
 }
 
 function onShow() {
@@ -36,15 +45,18 @@ onMounted(async () => {
           <MagnifyingGlassIcon class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400 md hydrated"/>
           <input type="text"
                  ref="searchInput"
+                 v-model="searchTerm"
                  @input="(e) => search(e.target.value)"
+                 @keyup.enter="(e) => execute(e.target.value)"
+                 @keydown.tab.prevent="(e) => completeTerm(e.target.value)"
                  class="w-full h-12 pr-4 bg-transparent border-0 text-gray-800 placeholder-gray-400 pl-11 sm:text-sm outline-none"
                  placeholder="What do you need?" role="combobox" aria-expanded="false" aria-controls="options">
         </div>
         <ul class="pt-3 space-y-3 overflow-y-auto max-h-96 scroll-py-3" id="options" role="listbox"
             v-if="results.length > 0">
           <li class="flex p-3 duration-200 cursor-default select-none text-gray-500 hover:text-blue-500 group rounded-xl hover:bg-gray-50"
-              v-for="(command, index) in results">
-            <ion-icon name="add-outline" class="w-5 h-5 md hydrated" role="img" aria-label="add outline"></ion-icon>
+              v-for="(command, index) in results" @click="command.executor">
+            <div name="add-outline" class="w-5 h-5 md hydrated" role="img" aria-label="add outline"></div>
             <span class="flex-auto ml-3 text-sm truncate">{{ command.prefix }}</span>
           </li>
         </ul>

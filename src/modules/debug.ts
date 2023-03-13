@@ -8,8 +8,13 @@ class Debug implements Module {
     }
 
     @Command({prefix: 'debug'})
-    debug() {
-        console.log("DEBUG");
+    debug(args: string) {
+        console.log("DEBUG " + args);
+    }
+
+    @Command({prefix: 'debug log'})
+    debugLog(args: string) {
+        console.log(args);
     }
 
     @Command({prefix: 'test'})
