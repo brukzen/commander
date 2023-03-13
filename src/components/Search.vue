@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
+import {MagnifyingGlassIcon} from "@heroicons/vue/24/solid";
 import {onMounted, ref} from "vue";
 import {invoke} from "@tauri-apps/api/tauri";
 import {useOverlay} from "../composables/useOverlay";
+import {useCommander} from "../composables/useCommander";
 
 const searchInput = ref<HTMLInputElement>();
+const commander = useCommander();
 const overlay = useOverlay();
 overlay.onShow.subscribe(onShow);
+
+const results = ref<Array<Command>>([]);
+
+function search(term: string) {
+  results.value = commander.suggestCommands(term);
+  console.log(`Search ${term} ${results.value.length}`);
+}
 
 function onShow() {
   if (searchInput.value) {
@@ -27,9 +36,18 @@ onMounted(async () => {
           <MagnifyingGlassIcon class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400 md hydrated"/>
           <input type="text"
                  ref="searchInput"
+                 @input="(e) => search(e.target.value)"
                  class="w-full h-12 pr-4 bg-transparent border-0 text-gray-800 placeholder-gray-400 pl-11 sm:text-sm outline-none"
                  placeholder="What do you need?" role="combobox" aria-expanded="false" aria-controls="options">
         </div>
+        <ul class="pt-3 space-y-3 overflow-y-auto max-h-96 scroll-py-3" id="options" role="listbox"
+            v-if="results.length > 0">
+          <li class="flex p-3 duration-200 cursor-default select-none text-gray-500 hover:text-blue-500 group rounded-xl hover:bg-gray-50"
+              v-for="(command, index) in results">
+            <ion-icon name="add-outline" class="w-5 h-5 md hydrated" role="img" aria-label="add outline"></ion-icon>
+            <span class="flex-auto ml-3 text-sm truncate">{{ command.prefix }}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
