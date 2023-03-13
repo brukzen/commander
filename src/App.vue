@@ -1,8 +1,17 @@
 <script setup lang="ts">
+import Search from "./components/Search.vue";
+import {useOverlay} from "./composables/useOverlay";
+import {onMounted} from "vue";
+
+const overlay = useOverlay();
+
+onMounted(async () => {
+  await overlay.initialize();
+})
 </script>
 
 <template>
-  <div class="container">
-    <h1>Welcome to Tauri!</h1>
+  <div>
+    <Search/>
   </div>
 </template>
