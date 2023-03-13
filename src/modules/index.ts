@@ -1,5 +1,5 @@
 import debugModule from "./debug";
 
-export default [
-    debugModule,
-]
+
+const modules: Module[] = [debugModule]
+export default modules;

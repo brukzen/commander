@@ -1,6 +1,12 @@
 import {Command} from "../common/Commands";
 
-class Debug {
+class Debug implements Module {
+    name;
+
+    constructor() {
+        this.name = "Debug";
+    }
+
     @Command({prefix: 'debug'})
     debug() {
         console.log("DEBUG");
