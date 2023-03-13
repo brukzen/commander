@@ -1,0 +1,5 @@
+declare class Module {
+    constructor() {
+
+    }
+}

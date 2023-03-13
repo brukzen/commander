@@ -25,6 +25,9 @@
       },
       "globalShortcut": {
         "all": true
+      },
+      "fs": {
+        "readDir": true
       }
     },
     "bundle": {
