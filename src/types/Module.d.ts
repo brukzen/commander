@@ -1,6 +1,6 @@
 declare class Module {
     public name;
-    constructor() {
+    constructor(commander: { registerCommand: Function<Command> }) {
 
     }
 }

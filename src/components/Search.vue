@@ -14,6 +14,10 @@ overlay.onShow.subscribe(onShow);
 const results = ref<Array<Command>>([]);
 
 function search(term: string) {
+  if (!term) {
+    return results.value = [];
+  }
+
   results.value = commander.suggestCommands(term);
 }
 
@@ -22,9 +26,6 @@ function execute(term: string) {
 }
 
 function completeTerm(term: string) {
-  if (!term) {
-    return results.value = [];
-  }
   searchTerm.value = results.value[0].prefix;
   search(searchTerm.value);
 }
@@ -55,7 +56,8 @@ onMounted(async () => {
                  class="w-full h-12 pr-4 bg-transparent border-0 text-gray-800 placeholder-gray-400 pl-11 sm:text-sm outline-none"
                  placeholder="What do you need?" role="combobox" aria-expanded="false" aria-controls="options">
           <div
-              class="w-full pointer-events-none absolute top-4 h-12 pr-4 bg-transparent border-0 text-gray-400 pl-11 sm:text-sm outline-none flex-col justify-center items-center" v-if="results.length > 0">
+              class="w-full pointer-events-none absolute top-4 h-12 pr-4 bg-transparent border-0 text-gray-400 pl-11 sm:text-sm outline-none flex-col justify-center items-center"
+              v-if="results.length > 0">
             <p>{{ results[0].prefix }}</p></div>
         </div>
         <ul class="pt-3 space-y-3 overflow-y-auto max-h-96 scroll-py-3" id="options" role="listbox"

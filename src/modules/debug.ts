@@ -1,23 +1,28 @@
-import {Command} from "../common/Commands";
-
 class Debug implements Module {
     name;
 
-    constructor() {
+    constructor(commander: any) {
         this.name = "Debug";
+
+        commander.registerCommand(this.debug, {
+            prefix: 'debug'
+        })
+        commander.registerCommand(this.debugLog, {
+            prefix: 'debug log'
+        })
+        commander.registerCommand(this.test, {
+            prefix: 'test'
+        })
     }
 
-    @Command({prefix: 'debug'})
     debug(args: string) {
         console.log("DEBUG " + args);
     }
 
-    @Command({prefix: 'debug log'})
     debugLog(args: string) {
         console.log(args);
     }
 
-    @Command({prefix: 'test'})
     test() {
         console.log("Test");
     }
@@ -25,5 +30,4 @@ class Debug implements Module {
 
 
 
-const debugModule = new Debug();
-export default debugModule;
+export default Debug;

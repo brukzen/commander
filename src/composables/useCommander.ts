@@ -2,12 +2,20 @@ import defaultModules from '../modules';
 import {useState} from "./useState";
 
 const {modules, commands} = useState();
+
 export function useCommander() {
     async function initialize() {
         for (const mod of defaultModules) {
             console.log("Registered module " + mod.name)
-            modules.value.push(mod);
+            modules.value.push(new mod({registerCommand}));
         }
+    }
+
+    function registerCommand(executor: Function, options: { prefix: string }) {
+        commands.value.push({
+            prefix: options.prefix,
+            executor,
+        });
     }
 
     function prefixMatch(input: string) {

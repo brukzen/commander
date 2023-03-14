@@ -1,5 +1,5 @@
-import debugModule from "./debug";
+import Debug from "./debug";
 
 
-const modules: Module[] = [debugModule]
+const modules: Array<new (args: any) => Module> = [Debug]
 export default modules;
