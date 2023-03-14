@@ -1,9 +1,13 @@
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod windows;
+
 use tauri::{Manager, UserAttentionType};
+use crate::windows::get_installed_apps;
 
 fn main() {
+    get_installed_apps();
+
     tauri::Builder::default()
         .setup(|app| {
             let commander = app.get_window("commander").expect("Commander window not found");
