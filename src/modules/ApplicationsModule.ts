@@ -8,10 +8,10 @@ export default class ApplicationsModule implements CommanderModule {
     async onInitialize(commandManager: ICommandManager) {
         this.applications = await invoke('get_installed_apps');
         for (const app of this.applications) {
-            console.log(app.display_name);
+            console.log(app);
             const cmd: ICommand = {
                 executor: () => this.openApplication(app),
-                icon: "",
+                icon: app.icon,
                 prefix: app.display_name,
             }
             commandManager.registerCommand(cmd);

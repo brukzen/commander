@@ -41,7 +41,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <section class="object-center overflow-hidden bg-cover">
+  <section class="object-center overflow-hidden bg-cover" @keyup.esc="overlay.hide">
     <div class="items-center justify-center p-8 md:p-12 lg:px-20 lg:py-36">
       <div
           class="max-w-xl p-3 mx-auto overflow-hidden transition-all transform bg-white shadow-2xl rounded-xl">
@@ -62,10 +62,10 @@ onMounted(async () => {
         </div>
         <ul class="pt-3 space-y-3 overflow-y-auto max-h-96 scroll-py-3" id="options" role="listbox"
             v-if="results.length > 0">
-          <li class="flex p-3 duration-200 cursor-default select-none text-gray-500 hover:text-blue-500 group rounded-xl hover:bg-gray-50"
+          <li class="flex items-center p-3 duration-200 cursor-default select-none text-gray-500 hover:text-blue-500 group rounded-xl hover:bg-gray-50"
               v-for="(command, index) in results" @click="command.executor">
-            <div name="add-outline" class="w-5 h-5 md hydrated" role="img" aria-label="add outline"></div>
-            <span class="flex-auto ml-3 text-sm truncate">{{ command.prefix }}</span>
+            <img class="w-8 h-8 md hydrated" :src="command.icon">
+            <p class="flex-auto ml-3 text-sm truncate">{{ command.prefix }}</p>
           </li>
         </ul>
       </div>
