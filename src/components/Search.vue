@@ -51,7 +51,7 @@ onMounted(async () => {
                  ref="searchInput"
                  v-model="searchTerm"
                  @input="(e) => search(e.target.value)"
-                 @keyup.enter="(e) => execute(e.target.value)"
+                 @keyup.enter="(e) => {execute(e.target.value); overlay.hide();}"
                  @keydown.tab.prevent="(e) => completeTerm(e.target.value)"
                  class="w-full h-12 pr-4 bg-transparent border-0 text-gray-800 placeholder-gray-400 pl-11 sm:text-sm outline-none"
                  placeholder="What do you need?" role="combobox" aria-expanded="false" aria-controls="options" autocomplete="off" spellcheck="false">
