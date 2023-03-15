@@ -1,5 +1,4 @@
-import Debug from "./debug";
-import Applications from "./applications";
+import ApplicationsModule from "./ApplicationsModule";
 
-const modules: Array<new (args: any) => Module> = [Debug, Applications]
+const modules: Array<new () => CommanderModule> = [ApplicationsModule]
 export default modules;

@@ -1,10 +1,9 @@
-declare interface CommandDefinition {
-    prefix: string;
+declare interface ICommandManager {
+    registerCommand(command: ICommand);
 }
 
-declare interface Command {
+declare interface ICommand {
     prefix: string;
+    icon: ?string;
     executor: Function<Array<string>>;
 }
-
-declare type CommandList = Command[];

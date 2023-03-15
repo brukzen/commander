@@ -11,7 +11,7 @@ const commander = useCommander();
 const overlay = useOverlay();
 overlay.onShow.subscribe(onShow);
 
-const results = ref<Array<Command>>([]);
+const results = ref<Array<ICommand>>([]);
 
 function search(term: string) {
   if (!term) {

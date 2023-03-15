@@ -1,10 +1,9 @@
-declare class Module {
-    public name;
-    constructor(commander: { registerCommand: Function<Command> }) {
-
-    }
+declare interface CommanderModule {
+    onInitialize(commandManager: ICommandManager): Promise<void>;
 }
 
 declare interface ModuleDefinition {
-    name: string
+    name: string;
+    version: string;
+    description: string;
 }
