@@ -6,7 +6,7 @@ const state = ref<State>({
 });
 
 const modules = ref<CommanderModule[]>([]);
-const commandManager = ref<CommandManager>(new CommandManager());
+const commandManager = new CommandManager();
 
 export function useState() {
     return {

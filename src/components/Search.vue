@@ -7,7 +7,7 @@ import {useCommander} from "../composables/useCommander";
 
 const searchTerm = ref('');
 const searchInput = ref<HTMLInputElement>();
-const commander = useCommander();
+const {commandManager} = useCommander();
 const overlay = useOverlay();
 overlay.onShow.subscribe(onShow);
 
@@ -18,7 +18,7 @@ function search(term: string) {
     return results.value = [];
   }
 
-  results.value = commander.suggestCommands(term);
+  results.value = commandManager.suggestCommands(term);
 }
 
 function execute(term: string) {

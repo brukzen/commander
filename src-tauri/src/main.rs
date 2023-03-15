@@ -1,16 +1,19 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod ipc;
 mod windows;
 
-use tauri::{Manager, UserAttentionType};
-use crate::windows::get_installed_apps;
+use crate::windows::application::get_installed_apps;
+use tauri::Manager;
 
 fn main() {
     get_installed_apps();
 
     tauri::Builder::default()
         .setup(|app| {
-            let commander = app.get_window("commander").expect("Commander window not found");
+            let commander = app
+                .get_window("commander")
+                .expect("Commander window not found");
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![init_search, get_installed_apps])

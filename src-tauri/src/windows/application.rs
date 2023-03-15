@@ -1,9 +1,10 @@
+use crate::ipc::ApplicationResponse;
 use std::env;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 #[tauri::command]
-pub fn get_installed_apps() -> Vec<(String, PathBuf)> {
+pub fn get_installed_apps() -> Vec<ApplicationResponse> {
     let mut apps = Vec::new();
     let home_dir = env::var("USERPROFILE").unwrap_or_else(|_| ".".to_string());
     let program_dir = env::var("ProgramData").expect("Environment variable Program Data not found");
@@ -12,12 +13,12 @@ pub fn get_installed_apps() -> Vec<(String, PathBuf)> {
         .join("AppData")
         .join("Roaming")
         .join("Microsoft")
-        .join("Windows")
+        .join("windows")
         .join("Start Menu")
         .join("Programs");
     let common_start_menu_dir = Path::new(&program_dir)
         .join("Microsoft")
-        .join("Windows")
+        .join("windows")
         .join("Start Menu")
         .join("Programs");
 
@@ -30,7 +31,7 @@ pub fn get_installed_apps() -> Vec<(String, PathBuf)> {
     apps
 }
 
-fn get_installed_apps_recursive(dir: &Path) -> Vec<(String, PathBuf)> {
+fn get_installed_apps_recursive(dir: &Path) -> Vec<ApplicationResponse> {
     let mut apps = Vec::new();
 
     if let Ok(entries) = fs::read_dir(dir) {
@@ -41,7 +42,11 @@ fn get_installed_apps_recursive(dir: &Path) -> Vec<(String, PathBuf)> {
                     let ext = path.extension().and_then(|e| e.to_str());
                     if ext == Some("exe") || ext == Some("lnk") {
                         if let Some(name) = path.file_stem().and_then(|n| n.to_str()) {
-                            apps.push((name.to_string(), path));
+                            apps.push(ApplicationResponse {
+                                display_name: name.to_string(),
+                                icon: "".to_string(),
+                                path,
+                            });
                         }
                     }
                 } else if path.is_dir() {
