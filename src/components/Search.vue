@@ -54,11 +54,11 @@ onMounted(async () => {
                  @keyup.enter="(e) => execute(e.target.value)"
                  @keydown.tab.prevent="(e) => completeTerm(e.target.value)"
                  class="w-full h-12 pr-4 bg-transparent border-0 text-gray-800 placeholder-gray-400 pl-11 sm:text-sm outline-none"
-                 placeholder="What do you need?" role="combobox" aria-expanded="false" aria-controls="options">
+                 placeholder="What do you need?" role="combobox" aria-expanded="false" aria-controls="options" autocomplete="off" spellcheck="false">
           <div
-              class="w-full pointer-events-none absolute top-4 h-12 pr-4 bg-transparent border-0 text-gray-400 pl-11 sm:text-sm outline-none flex-col justify-center items-center"
+              class="w-full pointer-events-none absolute top-0 left-11 h-12 text-gray-400 border-0 flex flex-row items-center"
               v-if="results.length > 0">
-            <p>{{ searchTerm + results[0].prefix.slice(searchTerm.length) }}</p></div>
+            <p class="sm:text-sm outline-none pt-[1px]"><span class="text-gray-800 opacity-0">{{searchTerm}}</span>{{results[0].prefix.slice(searchTerm.length) }}</p></div>
         </div>
         <ul class="pt-3 space-y-3 overflow-y-auto max-h-96 scroll-py-3" id="options" role="listbox"
             v-if="results.length > 0">
