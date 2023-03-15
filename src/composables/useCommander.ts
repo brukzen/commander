@@ -5,6 +5,8 @@ const {modules, commands} = useState();
 
 export function useCommander() {
     async function initialize() {
+        commands.value = [];
+        modules.value = [];
         for (const mod of defaultModules) {
             console.log("Registered module " + mod.name)
             modules.value.push(new mod({registerCommand}));
@@ -20,18 +22,23 @@ export function useCommander() {
 
     function prefixMatch(input: string) {
         const results = [];
-        for (let i = 0; i < commands.value.length; i++) {
-            if (commands.value[i].prefix.startsWith(input)) {
-                results.push(commands.value[i]);
+        try {
+            for (let i = 0; i < commands.value.length; i++) {
+                if (commands.value[i].prefix.toLowerCase().startsWith(input.toLowerCase())) {
+                    results.push(commands.value[i]);
+                }
             }
+            return results;
+        } catch (error) {
+            console.error('Failed search', error);
+            console.log(commands.value);
         }
-        return results;
     }
 
     function commandMatch(input: string) {
         const results: Command[] = [];
         for (let i = 0; i < commands.value.length; i++) {
-            if (commands.value[i].prefix === input) {
+            if (commands.value[i].prefix.toLowerCase() === input.toLowerCase()) {
                 results.push(commands.value[i]);
                 return results;
             }

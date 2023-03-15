@@ -13,7 +13,7 @@ fn main() {
             let commander = app.get_window("commander").expect("Commander window not found");
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![init_search])
+        .invoke_handler(tauri::generate_handler![init_search, get_installed_apps])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -22,4 +22,3 @@ fn main() {
 fn init_search() {
     println!("Initializing search");
 }
-

@@ -58,7 +58,7 @@ onMounted(async () => {
           <div
               class="w-full pointer-events-none absolute top-4 h-12 pr-4 bg-transparent border-0 text-gray-400 pl-11 sm:text-sm outline-none flex-col justify-center items-center"
               v-if="results.length > 0">
-            <p>{{ results[0].prefix }}</p></div>
+            <p>{{ searchTerm + results[0].prefix.slice(searchTerm.length) }}</p></div>
         </div>
         <ul class="pt-3 space-y-3 overflow-y-auto max-h-96 scroll-py-3" id="options" role="listbox"
             v-if="results.length > 0">
