@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "devtools": "vue-devtools",
     "preview": "vite preview",
     "tauri:dev": "tauri dev"
   },
@@ -15,6 +16,8 @@
     "vue": "^3.2.45"
   },
   "devDependencies": {
+    "@vue/devtools": "^6.5.0",
+    "concurrently": "^7.6.0",
     "@tauri-apps/cli": "^1.2.2",
     "@types/node": "^18.7.10",
     "@vitejs/plugin-vue": "^4.0.0",
