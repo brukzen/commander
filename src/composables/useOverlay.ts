@@ -11,8 +11,7 @@ const onShow = useObserver();
 export function useOverlay() {
 
     async function initialize() {
-        // await registerShortcut("esc", hide);
-        await registerShortcut("CommandOrControl+Space", show);
+        await registerShortcut("CommandOrControl+Backquote", show);
     }
 
     async function show() {

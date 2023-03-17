@@ -1,7 +1,9 @@
 import defaultModules from '../modules';
 import {useState} from "./useState";
+import {CommandManager} from "../common/CommandManager";
 
-const {modules, commandManager} = useState();
+const {modules} = useState();
+const commandManager = new CommandManager();
 
 
 export function useCommander() {
@@ -20,6 +22,6 @@ export function useCommander() {
 
     return {
         initialize,
-        commandManager,
+        search: commandManager.suggestCommands.bind(commandManager),
     }
 }
